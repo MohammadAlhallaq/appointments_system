@@ -1,39 +1,18 @@
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard</title>
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-{{--    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">--}}
-    <link href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet">
-
-    <!-- iCheck -->
-{{--    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">--}}
-    <link href="{{ asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}" rel="stylesheet">
-
-    <!-- JQVMap -->
-{{--    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">--}}
-{{--    <link href="{{ asset('assets/plugins/jqvmap/jqvmap.min.css') }}" rel="stylesheet">--}}
-
-
-    <!-- Theme style -->
-    <link href="{{ asset('assets/css/adminlte.min.css') }}" rel="stylesheet">
-
-<!-- overlayScrollbars -->
-    <link href="{{ asset('assets/plugins/overlayScrollbars/css/overlayScrollbars.min.css') }}" rel="stylesheet">
-
-    <!-- Daterange picker -->
-{{--    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">--}}
-    <link href="{{ asset('assets/plugins/daterangepicker/daterangepicker.css') }}" rel="stylesheet">
-
-    <!-- summernote -->
-{{--    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">--}}
-    <link href="{{ asset('assets/plugins/summernote/summernote-bs4.min.css') }}" rel="stylesheet">
-
-</head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="apple-touch-icon" sizes="76x76" href="{{ URL::to('/') }}/assets/img/apple-icon.png">
+<link rel="icon" type="image/png" href="{{ URL::to('/') }}/assets/img/favicon.png">
+<title>
+    Material Dashboard 2 by Creative Tim
+</title>
+<!--     Fonts and icons     -->
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+<!-- Nucleo Icons -->
+<link href="{{ URL::to('/') }}/assets/css/nucleo-icons.css" rel="stylesheet" />
+<link href="{{ URL::to('/') }}/assets/css/nucleo-svg.css" rel="stylesheet" />
+<!-- Font Awesome Icons -->
+<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+<!-- CSS Files -->
+<link id="pagestyle" href="{{ URL::to('/') }}/assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />

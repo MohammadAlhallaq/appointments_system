@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -37,5 +38,13 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($request->expectsJson() && $exception instanceof AuthenticationException)
+            return redirect(route('login'));
+
+        return parent::render($request, $exception);
     }
 }

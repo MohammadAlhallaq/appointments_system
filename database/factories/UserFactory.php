@@ -23,7 +23,7 @@ class UserFactory extends Factory
             'last_name' => $this->faker->lastName,
             'phone_number' => $this->faker->phoneNumber,
             'address' => $this->faker->address,
-            'account_type' => AccountType::PATIENT
+            'notes' => $this->faker->text(200),
         ];
     }
 

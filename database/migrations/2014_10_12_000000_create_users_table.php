@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\AccountType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +20,8 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('phone_number');
             $table->longText('address');
-            $table->tinyInteger('account_type');
+            $table->longText('notes');
+            $table->tinyInteger('account_type')->default(2);
             $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -1,50 +1,38 @@
+<!--
+=========================================================
+* Material Dashboard 2 - v3.0.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard
+* Copyright 2021 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
 <!DOCTYPE html>
 <html lang="en">
-@include('partials.header');
-@stack('style')
 
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
-    <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="{{asset('assets/images/dist/AdminLTELogo.png')}}" alt="AdminLTELogo"
-             height="60" width="60">
-    </div>
+<head>
+    @include('partials.header')
+    @stack('js')
+</head>
 
-    <!-- Navbar -->
-@include('partials.nav-bar')
-<!-- /.navbar -->
-
-    <!-- Main Sidebar Container -->
+<body class="g-sidenav-show  bg-gray-200">
 @include('partials.side-bar')
-
-<!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            @yield('content-header')
-        </div>
-        <!-- /.content-header -->
-
-        <!-- Main content -->
-        <section class="content">
-            @yield('content')
-        </section>
-        <!-- /.content -->
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    @include('partials.nav-bar')
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+        @yield('content')
     </div>
-    <!-- /.content-wrapper -->
-@include('partials.main-footer')
-
-<!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery -->
+</main>
+<!--   Core JS Files   -->
 @include('partials.footer')
 @stack('js')
 </body>
+
 </html>

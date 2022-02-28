@@ -1,42 +1,265 @@
-<!-- jQuery -->
-{{--<script src="plugins/jquery/jquery.min.js"></script>--}}
-<script type="text/javascript" src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
-
-<!-- jQuery UI 1.11.4 -->
-{{--<script src="plugins/jquery-ui/jquery-ui.min.js"></script>--}}
-<script type="text/javascript" src="{{ asset('assets/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script src="{{ URL::to('/') }}/assets/js/core/popper.min.js"></script>
+<script src="{{ URL::to('/') }}/assets/js/core/bootstrap.min.js"></script>
+<script src="{{ URL::to('/') }}/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="{{ URL::to('/') }}/assets/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="{{ URL::to('/') }}/assets/js/plugins/chartjs.min.js"></script>
 <script>
-    $.widget.bridge('uibutton', $.ui.button)
+    var ctx = document.getElementById("chart-bars").getContext("2d");
+
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["M", "T", "W", "T", "F", "S", "S"],
+            datasets: [{
+                label: "Sales",
+                tension: 0.4,
+                borderWidth: 0,
+                borderRadius: 4,
+                borderSkipped: false,
+                backgroundColor: "rgba(255, 255, 255, .8)",
+                data: [50, 20, 10, 22, 50, 10, 40],
+                maxBarThickness: 6
+            }, ],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                }
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            scales: {
+                y: {
+                    grid: {
+                        drawBorder: false,
+                        display: true,
+                        drawOnChartArea: true,
+                        drawTicks: false,
+                        borderDash: [5, 5],
+                        color: 'rgba(255, 255, 255, .2)'
+                    },
+                    ticks: {
+                        suggestedMin: 0,
+                        suggestedMax: 500,
+                        beginAtZero: true,
+                        padding: 10,
+                        font: {
+                            size: 14,
+                            weight: 300,
+                            family: "Roboto",
+                            style: 'normal',
+                            lineHeight: 2
+                        },
+                        color: "#fff"
+                    },
+                },
+                x: {
+                    grid: {
+                        drawBorder: false,
+                        display: true,
+                        drawOnChartArea: true,
+                        drawTicks: false,
+                        borderDash: [5, 5],
+                        color: 'rgba(255, 255, 255, .2)'
+                    },
+                    ticks: {
+                        display: true,
+                        color: '#f8f9fa',
+                        padding: 10,
+                        font: {
+                            size: 14,
+                            weight: 300,
+                            family: "Roboto",
+                            style: 'normal',
+                            lineHeight: 2
+                        },
+                    }
+                },
+            },
+        },
+    });
+
+
+    var ctx2 = document.getElementById("chart-line").getContext("2d");
+
+    new Chart(ctx2, {
+        type: "line",
+        data: {
+            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: [{
+                label: "Mobile apps",
+                tension: 0,
+                borderWidth: 0,
+                pointRadius: 5,
+                pointBackgroundColor: "rgba(255, 255, 255, .8)",
+                pointBorderColor: "transparent",
+                borderColor: "rgba(255, 255, 255, .8)",
+                borderColor: "rgba(255, 255, 255, .8)",
+                borderWidth: 4,
+                backgroundColor: "transparent",
+                fill: true,
+                data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
+                maxBarThickness: 6
+
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                }
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            scales: {
+                y: {
+                    grid: {
+                        drawBorder: false,
+                        display: true,
+                        drawOnChartArea: true,
+                        drawTicks: false,
+                        borderDash: [5, 5],
+                        color: 'rgba(255, 255, 255, .2)'
+                    },
+                    ticks: {
+                        display: true,
+                        color: '#f8f9fa',
+                        padding: 10,
+                        font: {
+                            size: 14,
+                            weight: 300,
+                            family: "Roboto",
+                            style: 'normal',
+                            lineHeight: 2
+                        },
+                    }
+                },
+                x: {
+                    grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: false,
+                        drawTicks: false,
+                        borderDash: [5, 5]
+                    },
+                    ticks: {
+                        display: true,
+                        color: '#f8f9fa',
+                        padding: 10,
+                        font: {
+                            size: 14,
+                            weight: 300,
+                            family: "Roboto",
+                            style: 'normal',
+                            lineHeight: 2
+                        },
+                    }
+                },
+            },
+        },
+    });
+
+    var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
+
+    new Chart(ctx3, {
+        type: "line",
+        data: {
+            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: [{
+                label: "Mobile apps",
+                tension: 0,
+                borderWidth: 0,
+                pointRadius: 5,
+                pointBackgroundColor: "rgba(255, 255, 255, .8)",
+                pointBorderColor: "transparent",
+                borderColor: "rgba(255, 255, 255, .8)",
+                borderWidth: 4,
+                backgroundColor: "transparent",
+                fill: true,
+                data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                maxBarThickness: 6
+
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                }
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            scales: {
+                y: {
+                    grid: {
+                        drawBorder: false,
+                        display: true,
+                        drawOnChartArea: true,
+                        drawTicks: false,
+                        borderDash: [5, 5],
+                        color: 'rgba(255, 255, 255, .2)'
+                    },
+                    ticks: {
+                        display: true,
+                        padding: 10,
+                        color: '#f8f9fa',
+                        font: {
+                            size: 14,
+                            weight: 300,
+                            family: "Roboto",
+                            style: 'normal',
+                            lineHeight: 2
+                        },
+                    }
+                },
+                x: {
+                    grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: false,
+                        drawTicks: false,
+                        borderDash: [5, 5]
+                    },
+                    ticks: {
+                        display: true,
+                        color: '#f8f9fa',
+                        padding: 10,
+                        font: {
+                            size: 14,
+                            weight: 300,
+                            family: "Roboto",
+                            style: 'normal',
+                            lineHeight: 2
+                        },
+                    }
+                },
+            },
+        },
+    });
 </script>
-<!-- Bootstrap 4 -->
-{{--<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>--}}
-<script type="text/javascript" src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-<!-- ChartJS -->
-{{--<script src="plugins/chart.js/Chart.min.js"></script>--}}
-<!-- Sparkline -->
-{{--<script src="plugins/sparklines/sparkline.js"></script>--}}
-
-<!-- JQVMap -->
-{{--<script type="text/javascript" src="{{ asset('assets/plugins/jqvmap/jquery.vmap.min.js') }}"></script>--}}
-{{--<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>--}}
-<!-- jQuery Knob Chart -->
-<script type="text/javascript" src="{{ asset('assets/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
-<!-- daterangepicker -->
-<script type="text/javascript" src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
-
-<script type="text/javascript" src="{{ asset('assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script type="text/javascript" src="{{ asset('assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-<!-- Summernote -->
-<script type="text/javascript" src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
-<!-- overlayScrollbars -->
-<script type="text/javascript" src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script type="text/javascript" src="{{ asset('assets/js/adminlte.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script type="text/javascript" src="{{ asset('assets/js/demo.js') }}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script type="text/javascript" src="{{ asset('assets/js/dashboard.js') }}"></script>
+<script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+</script>
+<!-- Github buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="{{ URL::to('/') }}/assets/js/material-dashboard.min.js?v=3.0.0"></script>
