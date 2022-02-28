@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('pages.home');
+});
+
+
+Route::controller(PatientController::class)->group(function () {
+    Route::get('/patients', 'index')->name('patients');
+    Route::match(['POST', 'GET'],'/patients/create', 'create')->name('patients.new');
 });

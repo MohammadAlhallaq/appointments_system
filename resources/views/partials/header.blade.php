@@ -19,7 +19,7 @@
 
     <!-- JQVMap -->
 {{--    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">--}}
-    <link href="{{ asset('assets/plugins/jqvmap/jqvmap.min.css') }}" rel="stylesheet">
+{{--    <link href="{{ asset('assets/plugins/jqvmap/jqvmap.min.css') }}" rel="stylesheet">--}}
 
 
     <!-- Theme style -->

@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'patients',
+        'passwords' => 'users',
     ],
 
     /*
@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'patients',
+            'provider' => 'users',
         ],
     ],
 
@@ -60,9 +60,9 @@ return [
     */
 
     'providers' => [
-        'patients' => [
+        'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Patient::class,
+            'model' => App\Models\User::class,
         ],
 
         // 'users' => [
