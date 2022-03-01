@@ -17,7 +17,7 @@ class PatientValidator
             'notes' => ['required', 'string', 'max:200'],
             'phone_number' => ['required', 'numeric'],
             'images' => ['array'],
-            'images.*' => ['image', 'mimes:jpeg,jpg,png|max:1000']
+            'images.*' => ['image', 'mimes:jpeg,jpg,png|max:1000'],
         ];
         return validator($attributes, $rules)->validate();
     }

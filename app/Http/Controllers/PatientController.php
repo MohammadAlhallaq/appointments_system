@@ -31,15 +31,12 @@ class PatientController extends Controller
                 $patient->fill(Arr::except($data, 'images'))->save();
 
                 if (isset($data['images'])) {
-
-                    foreach ($data['images'] as $image) {
-
+                    collect($data['images'])->each(function ($image) use ($patient) {
                         $path = Storage::disk('public')->put('images', $image);
-
                         $patient->images()->create([
                             'path' => $path
                         ]);
-                    }
+                    });
                 }
                 return $patient;
             });

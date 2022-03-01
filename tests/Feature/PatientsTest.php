@@ -97,6 +97,7 @@ class PatientsTest extends TestCase
      */
     public function PatientWithOneImage()
     {
+        $this->withoutExceptionHandling();
         $image = UploadedFile::fake()->image('cover.jpg');
         $user = User::factory()->admin()->create();
         $this->actingAs($user);
@@ -125,7 +126,7 @@ class PatientsTest extends TestCase
      * @return void
      * @test
      */
-    public function ItCreatesNewPatientWithMultipleImages()
+    public function PatientWithMultipleImages()
     {
         $image = UploadedFile::fake()->image('cover.jpg');
         $image1 = UploadedFile::fake()->image('cover1.jpg');
@@ -142,7 +143,6 @@ class PatientsTest extends TestCase
             'phone_number' => '00963552349',
             'images' => [$image, $image1],
         ]);
-
 
         $user = User::where('account_type', AccountType::PATIENT)->get()->first();
         $this->assertTrue($user->images()->exists());
