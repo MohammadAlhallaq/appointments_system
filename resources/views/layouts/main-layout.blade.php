@@ -13,16 +13,16 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="{{@app()->getLocale() == 'ar' ? 'rtl' : ''}}">
 
 <head>
     @include('partials.header')
     @stack('js')
 </head>
 
-<body class="g-sidenav-show  bg-gray-200">
+<body class="g-sidenav-show {{@app()->getLocale() == 'ar' ? 'rtl' : ''}} bg-gray-200">
 @include('partials.side-bar')
-<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg {{@app()->getLocale() == 'ar' ? 'overflow-x-hidden' : ''}}">
     <!-- Navbar -->
     @include('partials.nav-bar')
     <!-- End Navbar -->

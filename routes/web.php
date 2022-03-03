@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PatientController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
 Route::get('/', function () {
     return view('pages.home');
-})->middleware('auth');
+});
+
+Route::get('/{locale}', function ($locale) {
+    App::setLocale($locale);
+    session()->put('locale', $locale);
+    return redirect()->back();
+})->name('changeLang')->where('locale', '(ar|en)');
 
 
 Route::controller(PatientController::class)->middleware('auth')->group(function () {
@@ -32,8 +38,8 @@ Route::controller(PatientController::class)->middleware('auth')->group(function 
     Route::delete('/patients/{patient}', 'delete')->name('patients.delete');
 });
 
-Route::controller(AppointmentController::class)->middleware('auth')->group(function(){
-    Route::match(['POST', 'GET'],'/appointments', 'create')->name('appointments.create');
+Route::controller(AppointmentController::class)->middleware('auth')->group(function () {
+    Route::match(['POST', 'GET'], '/appointments', 'create')->name('appointments.create');
 });
 
 Route::controller(AuthController::class)->middleware('guest')->group(function () {
