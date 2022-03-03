@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\AccountType;
-use App\Models\User;
+use App\Models\Patient;
 use App\Validators\PatientValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -15,16 +14,15 @@ class PatientController extends Controller
 {
     function index(): View
     {
-        return view('pages.patients.all-patients')
-            ->with(['patients' => User::where('account_type', AccountType::PATIENT)->get()]);
+        return view('pages.patients.index')
+            ->with(['patients' => Patient::all()]);
     }
-
 
     function create(Request $request): View
     {
         if ($request->isMethod('POST')) {
 
-            $data = PatientValidator::validate($request->all(), $patient = new User());
+            $data = PatientValidator::validate($request->all(), $patient = new Patient());
 
             DB::transaction(function () use ($data, $patient) {
 
@@ -40,8 +38,32 @@ class PatientController extends Controller
                 }
                 return $patient;
             });
-            return view('pages.patients.all-patients');
+            return view('pages.patients.index');
         }
-        return view('pages.patients.new-patient');
+        return view('pages.patients.create');
+    }
+
+    function show(Patient $patient)
+    {
+        return view('pages.patients.show')->with(['patient' => $patient->load('images')]);
+    }
+
+    function update(Patient $patient): View
+    {
+
+        $data = PatientValidator::validate(request()->all(), $patient);
+
+        $patient->fill(Arr::except($data, ['images']))->save();
+
+        return view('pages.patients.index');
+    }
+
+    function delete(Patient $patient): View
+    {
+        $patient->images()->each(function ($image) {
+            Storage::disk('public')->delete($image->path);
+            $image->delete();
+        });
+        $patient->delete();
     }
 }

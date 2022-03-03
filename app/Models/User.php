@@ -37,17 +37,4 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'phone_number' => 'integer',
-        'account_type' => AccountType::class
-    ];
-
-    function images(): HasMany{
-        return $this->hasMany(Image::class);
-    }
 }
