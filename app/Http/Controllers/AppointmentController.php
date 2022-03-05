@@ -25,9 +25,17 @@ class AppointmentController extends Controller
 
         Appointment::create([
             'start_date' => request()->date('start_date'),
-            'end_date' => request()->date('start_date',)->addMinutes(29),
+            'end_date' => request()->date('start_date')->addMinutes(30)->toDateTimeString(),
             'patient_id' => $data['patient_id']
         ]);
 
+    }
+
+
+    function update(){
+        $rules = [
+            'start_date' => ['date', 'required'],
+            'patient_id' => ['required', Rule::exists('patients', 'id')]
+        ];
     }
 }

@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PatientController;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,33 +19,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
+Route::GET('/', function () {
     return view('pages.home');
-});
+})->middleware('auth');
 
-Route::get('/{locale}', function ($locale) {
-    App::setLocale($locale);
-    session()->put('locale', $locale);
-    return redirect()->back();
-})->name('changeLang')->where('locale', '(ar|en)');
-
+Route::GET('/{locale}', LocaleController::class)->name('changeLang')->where('locale', '(ar|en)');
+Route::GET('/logout', LogoutController::class)->name('logout')->middleware('auth');
 
 Route::controller(PatientController::class)->middleware('auth')->group(function () {
-    Route::get('/patients', 'index')->name('patients');
-    Route::get('/patients/create', 'create')->name('patients.create');
-    Route::post('/patients', 'create')->name('patients.store');
-    Route::get('/patients/{patient}', 'show')->name('patients.show');
-    Route::put('/patients/{patient}', 'update')->name('patients.update');
-    Route::delete('/patients/{patient}', 'delete')->name('patients.delete');
+    Route::GET('/patients', 'index')->name('patients');
+    Route::GET('/patients/create', 'create')->name('patients.create');
+    Route::POST('/patients', 'create')->name('patients.store');
+    Route::GET('/patients/{patient}', 'show')->name('patients.show');
+    Route::PUT('/patients/{patient}', 'update')->name('patients.update');
+    Route::DELETE('/patients/{patient}', 'delete')->name('patients.delete');
 });
 
 Route::controller(AppointmentController::class)->middleware('auth')->group(function () {
     Route::match(['POST', 'GET'], '/appointments', 'create')->name('appointments.create');
+//    Route::match(['POST', 'GET'], '/appointments', 'update')->name('appointments.update');
 });
 
 Route::controller(AuthController::class)->middleware('guest')->group(function () {
-    Route::get('/login', 'index')->name('login');
-//    Route::match(['POST', 'GET'],'/patients/create', 'create')->name('');
+    Route::MATCH(['POST', 'GET'],'/login', 'login')->name('login');
 });
 
 
