@@ -30,13 +30,11 @@ class Appointment extends Model
         $query->where(function (Builder $query) use ($start_date, $end_date) {
 
             $query->whereBetween('start_date', [$start_date, $end_date])
-
                 ->orWhereBetween('end_date', [$start_date, $end_date])
-
                 ->orWhere(function ($query) use ($start_date, $end_date) {
                     $query
                         ->where([['start_date', '<', $start_date], ['end_date', '>', $end_date]]);
-                });;
+                });
         });
     }
 }

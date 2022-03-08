@@ -24,4 +24,10 @@ class Patient extends Model
     function images(): HasMany{
         return $this->hasMany(Image::class);
     }
+
+    function appointments(): HasMany{
+        return $this->hasMany(Appointment::class);
+    }
 }
+
+

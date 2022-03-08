@@ -31,6 +31,7 @@
     </div>
 </main>
 <!--   Core JS Files   -->
+
 @include('partials.footer')
 @stack('js')
 </body>

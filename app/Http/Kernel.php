@@ -40,7 +40,8 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             ForceJsonValidation::class,
-            setLocale::class
+            setLocale::class,
+
         ],
 
         'api' => [

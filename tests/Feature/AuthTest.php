@@ -30,14 +30,13 @@ class AuthTest extends TestCase
     public function ItReturnsLoginUsernameValidationErrors()
     {
         $response = $this->post(route('login'),
-        [
-            'username' => 'invalid',
-            'password' => 'password'
-        ]);
+            [
+                'username' => 'invalid',
+                'password' => 'password'
+            ]);
 
         $response->assertJsonValidationErrors(['credentials']);
     }
-
 
 
     /**
@@ -70,7 +69,7 @@ class AuthTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->post(route('login'),
+        $this->post(route('login'),
             [
                 'username' => $user->username,
                 'password' => 'password'
@@ -78,8 +77,6 @@ class AuthTest extends TestCase
 
         $this->assertAuthenticated();
     }
-
-
 
 
     /**

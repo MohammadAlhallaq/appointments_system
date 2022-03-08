@@ -178,7 +178,7 @@ class PatientsTest extends TestCase
      * @return void
      * @test
      */
-    public function ItApprovesImagesMustBeArray()
+    public function ItValidateThatImagesMustBeArray()
     {
         $image = UploadedFile::fake()->image('cover.jpg');
 
@@ -253,6 +253,39 @@ class PatientsTest extends TestCase
         $this->assertDatabaseHas('patients', ['first_name' => 'edited', 'last_name' => 'edited']);
         $this->assertDatabaseCount('patients', 1);
     }
+
+
+
+    /**
+     * A basic test example.
+     *
+     * @return void
+     * @test
+     */
+    public function ItReturnValidationErrorsForUpdating()
+    {
+        $image = UploadedFile::fake()->image('cover.jpg');
+        $image1 = UploadedFile::fake()->image('cover1.jpg');
+
+        $user = User::factory()->create();
+        $patient = Patient::factory()->create();
+        $patient->images()->createMany([
+            ['path' => 'images/' . $image1->hashName()],
+            ['path' => 'images/' . $image->hashName()]
+        ]);
+        $this->actingAs($user);
+
+        $response = $this->put(route('patients.update', $patient->id), [
+            'first_name' => '',
+            'last_name' => '',
+        ]);
+
+        $response->assertJsonValidationErrors(['first_name', 'last_name']);
+        $this->assertDatabaseHas('patients', ['first_name' => $patient->first_name, 'last_name' => $patient->last_name]);
+        $this->assertDatabaseCount('patients', 1);
+    }
+
+
 
 
     /**
