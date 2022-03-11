@@ -18,6 +18,7 @@
 <head>
     @include('partials.header')
     @stack('js')
+{{--    @inertiaHead--}}
 </head>
 
 <body class="g-sidenav-show {{@app()->getLocale() == 'ar' ? 'rtl' : ''}} bg-gray-200">
@@ -31,7 +32,7 @@
     </div>
 </main>
 <!--   Core JS Files   -->
-
+{{--@inertia--}}
 @include('partials.footer')
 @stack('js')
 </body>

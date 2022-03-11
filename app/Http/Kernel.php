@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\ForceJsonValidation;
+use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\setLocale;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -39,8 +40,9 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            ForceJsonValidation::class,
+//            ForceJsonValidation::class,
             setLocale::class,
+            HandleInertiaRequests::class,
 
         ],
 

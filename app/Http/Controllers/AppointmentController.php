@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\AppointmentInterval;
 use App\Models\Appointment;
 use App\Models\Patient;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -59,6 +57,13 @@ class AppointmentController extends Controller
             'end_date' => request()->date('start_date')->addMinutes('30')->toDateTimeString(),
         ]);
 
+        return Redirect::route('appointments');
+    }
+
+
+    function delete(Appointment $appointment): RedirectResponse
+    {
+        $appointment->delete();
         return Redirect::route('appointments');
     }
 }

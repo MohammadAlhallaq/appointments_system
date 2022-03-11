@@ -19,9 +19,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::GET('/', function () {
-    return view('pages.home');
-});
+Route::view('/', 'pages.home');
+
 
 Route::GET('/{locale}', LocaleController::class)->name('changeLang')->where('locale', '(ar|en)');
 Route::GET('/logout', LogoutController::class)->name('logout')->middleware('auth');
@@ -39,6 +38,7 @@ Route::controller(AppointmentController::class)->middleware('auth')->group(funct
     Route::get('/appointments', 'index')->name('appointments');
     Route::POST( '/appointments', 'create')->name('appointments.store');
     Route::GET( '/appointments/create', 'create')->name('appointments.create');
+    Route::DELETE( '/appointments/{appointment}', 'delete')->name('appointments.delete');
     Route::match(['PUT', 'GET'], '/patients/{patient}/appointments/{appointment:id}', 'update')->name('appointments.update');
 });
 

@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use Illuminate\Http\Client\Response;
+use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
@@ -17,6 +17,7 @@ class AuthTest extends TestCase
     public function ItViewLoginPage()
     {
         $response = $this->get(route('login'));
+        $response->assertInertia(fn(Assert $page) => $page->component('login'));
         $response->assertStatus(200);
     }
 

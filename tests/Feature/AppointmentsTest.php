@@ -2,13 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Enums\AppointmentInterval;
 use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class AppointmentsTest extends TestCase
@@ -152,6 +150,8 @@ class AppointmentsTest extends TestCase
             'patient_id' => $patient->id
         ]);
 
+        $this->assertDatabaseHas('appointments', ['start_date' => now()->addMinutes(30)->toDateTimeString()]);
+        $this->assertDatabaseHas('appointments', ['end_date' => now()->addMinutes(60)->toDateTimeString()]);
         $response->assertRedirect(route('appointments'));
     }
 
@@ -175,10 +175,24 @@ class AppointmentsTest extends TestCase
         $response->assertViewIs('pages.appointments.index')->assertViewHas('appointments');
     }
 
+
+    /**
+     *
+     * @return void
+     * @test
+     */
+    function itCancelAnAppointments()
+    {
+        $user = User::factory()->create();
+        $appointment = Appointment::factory()->create();
+
+        $this->actingAs($user);
+
+        $response = $this->delete(route('appointments.delete', $appointment->id));
+
+        $this->assertDatabaseMissing('appointments', ['id' => $appointment->id]);
+        $this->assertDatabaseCount('appointments', 0);
+        $response->assertRedirect(route('appointments'));
+    }
+
 }
-
-//"select exists(select * from `appointments` where (`start_date` between ? and ? or `end_date` between ? and ? or ((`start_date` < ? and `end_date` > ?)) a
-//nd not (`end_date` = ?))) as `exists`"
-
-//"select exists(select * from `appointments` where (`start_date` between ? and ? or `end_date` between ? and ? or ((`start_date` < ? and `end_date` > ?)))
-//and not (`end_date` = ?))
