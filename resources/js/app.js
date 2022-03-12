@@ -7,6 +7,7 @@ import { InertiaProgress } from '@inertiajs/progress'
 InertiaProgress.init()
 
 createInertiaApp({
+    title: title => ` My Patients - ${title}`,
     resolve: name => require(`./Pages/${name}`),
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })

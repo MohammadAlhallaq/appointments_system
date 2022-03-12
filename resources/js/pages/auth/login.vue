@@ -29,10 +29,19 @@
                                 </div>
                             </div>
                             <div class="card-body">
+                                <div v-for="error in errors">
+                                    <div class="alert alert-primary alert-dismissible text-white" role="alert">
+                                        <span class="text-sm">{{error}}</span>
+                                        <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                </div>
                                 <form @submit.prevent="submit" class="text-start">
                                     <div class="input-group input-group-outline my-3">
                                         <label class="form-label">Email</label>
                                         <input type="text" class="form-control" v-model="form.username">
+
                                     </div>
                                     <div class="input-group input-group-outline mb-3">
                                         <label class="form-label">Password</label>

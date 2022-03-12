@@ -19,8 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::view('/', 'pages.home');
-
+Route::inertia('/', 'home');
 
 Route::GET('/{locale}', LocaleController::class)->name('changeLang')->where('locale', '(ar|en)');
 Route::GET('/logout', LogoutController::class)->name('logout')->middleware('auth');

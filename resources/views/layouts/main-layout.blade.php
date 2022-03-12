@@ -22,10 +22,10 @@
 </head>
 
 <body class="g-sidenav-show {{@app()->getLocale() == 'ar' ? 'rtl' : ''}} bg-gray-200">
-@include('partials.side-bar')
+{{--@include('partials.side-bar')--}}
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg {{@app()->getLocale() == 'ar' ? 'overflow-x-hidden' : ''}}">
     <!-- Navbar -->
-    @include('partials.nav-bar')
+{{--    @include('partials.nav-bar')--}}
     <!-- End Navbar -->
     <div class="container-fluid py-4">
         @yield('content')
