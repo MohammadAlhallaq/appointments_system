@@ -1,7 +1,5 @@
 <template>
-    <layout>
-        <Head title="Home" />
-
+        <Head title="Home"></Head>
         <div class="row">
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
@@ -72,15 +70,4 @@
                 </div>
             </div>
         </div>
-    </layout>
 </template>
-
-<script>
-
-import { Head } from '@inertiajs/inertia-vue3'
-import layout from '../layouts/layout.vue';
-
-export default {
-    components: {layout, Head}
-}
-</script>

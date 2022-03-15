@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use Inertia\Inertia;
 use Inertia\Response;
 
 class AuthController extends Controller
 {
-    /**
-     * @throws \Throwable
-     * @throws ValidationException
-     */
-    function login(Request $request): Response
+
+
+    function login(Request $request): Response|RedirectResponse
     {
         if ($request->isMethod("POST")) {
 
@@ -27,10 +25,10 @@ class AuthController extends Controller
 
             $credentials = ['username' => $data['username'], 'password' => $data['password']];
 
-            throw_unless(Auth::attempt($credentials), ValidationException::withMessages(['credentials' => 'invalid username or password']));
+            throw_unless(Auth::attempt($credentials, $request->boolean('rememberMe')), ValidationException::withMessages(['credentials' => 'invalid username or password']));
 
-            return view('pages.home');
+            return redirect()->route('home');
         }
-        return Inertia::render('login');
+        return inertia('auth/login');
     }
 }

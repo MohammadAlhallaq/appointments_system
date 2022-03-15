@@ -4,21 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Patient;
 use App\Validators\PatientValidator;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Inertia\Response;
 
 class PatientController extends Controller
 {
-    function index(): View
+    function index(): Response
     {
-        return view('pages.patients.index')
-            ->with(['patients' => Patient::all()]);
+        return inertia('patients/index',
+            [
+                'patients' => Patient::all()
+            ]);
     }
 
-    function create(Request $request): View
+    function create(Request $request): Response
     {
         if ($request->isMethod('POST')) {
 
@@ -38,27 +43,30 @@ class PatientController extends Controller
                 }
                 return $patient;
             });
-            return view('pages.patients.index');
+            return inertia('patients/index');
         }
-        return view('pages.patients.create');
+        return inertia('patients/create');
     }
 
     function show(Patient $patient)
     {
-        return view('pages.patients.show')->with(['patient' => $patient->load('images')]);
+        return inertia('patients/show',
+        [
+            'patient' => $patient->load('images')
+        ]);
     }
 
-    function update(Patient $patient): View
+    function update(Patient $patient): RedirectResponse
     {
 
         $data = PatientValidator::validate(request()->all(), $patient);
 
         $patient->fill(Arr::except($data, ['images']))->save();
 
-        return view('pages.patients.index');
+        return Redirect::route('patients');
     }
 
-    function delete(Patient $patient): View
+    function delete(Patient $patient): void
     {
         $patient->images()->each(function ($image) {
             Storage::disk('public')->delete($image->path);

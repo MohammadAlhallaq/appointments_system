@@ -2,3 +2,9 @@
 @import "../assets/css/nucleo-svg.css";
 @import "../assets/css/material-dashboard.css";
 
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+

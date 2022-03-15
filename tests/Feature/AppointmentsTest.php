@@ -7,6 +7,7 @@ use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
+use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
 class AppointmentsTest extends TestCase
@@ -41,10 +42,12 @@ class AppointmentsTest extends TestCase
 
         $response = $this->post(route('appointments.store'), [
             'start_date' => now()->addMinutes(30)->toDateTimeString(),
+            'end_date' => now()->addMinutes(35)->toDateTimeString(),
             'patient_id' => $patient->id
         ]);
 
-        $response->assertUnprocessable();
+
+        $response->assertSessionHasErrors(['appointment']);
         $this->assertDatabaseHas('patients', ['id' => $patient->id]);
         $this->assertDatabaseCount('appointments', 2);
         $this->assertDatabaseCount('patients', 3);
@@ -87,6 +90,30 @@ class AppointmentsTest extends TestCase
         $this->assertDatabaseHas('patients', ['id' => $patient->id]);
         $this->assertDatabaseCount('appointments', 3);
         $this->assertDatabaseCount('patients', 3);
+    }
+
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     * @test
+     */
+    public function ItValidatesThatEndDateIsAfterStartDate()
+    {
+        $user = User::factory()->create();
+
+        $patient = Patient::factory()->create();
+
+        $this->actingAs($user);
+
+        $response = $this->post(route('appointments.store'), [
+            'start_date' => now()->addMinutes(21)->toDateTimeString(),
+            'end_date' => now()->addMinutes(20)->toDateTimeString(),
+            'patient_id' => $patient->id,
+        ]);
+
+        $response->assertSessionHasErrors(['end_date']);
     }
 
 
@@ -142,6 +169,7 @@ class AppointmentsTest extends TestCase
         $response = $this->put(route('appointments.update',
             ['patient' => $patient->id, 'appointment' => $appointment->id]), [
             'start_date' => now()->addMinutes(30),
+            'end_date' => now()->addMinutes(60),
         ]);
 
         $this->assertDatabaseHas('appointments', [
@@ -170,9 +198,11 @@ class AppointmentsTest extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->get(route('appointments'));
+        $this->get(route('appointments'))->
+        assertInertia(fn(Assert $page) => $page
+            ->component('appointments/index')
+            ->has('appointments', 10));
 
-        $response->assertViewIs('pages.appointments.index')->assertViewHas('appointments');
     }
 
 

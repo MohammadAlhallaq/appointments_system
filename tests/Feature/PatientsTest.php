@@ -8,6 +8,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
+use Inertia\Testing\AssertableInertia as Assert;
+
 
 class PatientsTest extends TestCase
 {
@@ -27,8 +29,7 @@ class PatientsTest extends TestCase
         $this->actingAs($user);
 
         $this->get(route('patients'))
-            ->assertViewIs('pages.patients.index')
-            ->assertViewHas('patients');
+            ->assertInertia(fn(Assert $page) => $page->component('patients/index')->has('patients', 5));
     }
 
 
@@ -44,9 +45,8 @@ class PatientsTest extends TestCase
 
         $this->actingAs($user);
 
-        $this->get(route('patients.create'))
-            ->assertOk()
-            ->assertViewIs('pages.patients.create');
+        $this->get(route('patients.create'))->assertOk()
+            ->assertInertia(fn(Assert $page) => $page->component('patients/create'));
     }
 
 
@@ -80,7 +80,7 @@ class PatientsTest extends TestCase
 
         $response = $this->post(route('patients.store'));
 
-        $response->assertJsonValidationErrors(['last_name', 'first_name', 'phone_number', 'address']);
+        $response->assertSessionHasErrors(['last_name', 'first_name', 'phone_number', 'address']);
     }
 
     /**
@@ -194,7 +194,7 @@ class PatientsTest extends TestCase
             'phone_number' => '00963552349',
             'images' => $image,
         ]);
-        $response->assertJsonValidationErrors(['images']);
+        $response->assertSessionHasErrors(['images']);
     }
 
 
@@ -218,8 +218,7 @@ class PatientsTest extends TestCase
         $this->actingAs($user);
 
         $response = $this->get(route('patients.show', $patient->id));
-
-        $response->assertViewIs('pages.patients.show')->assertViewHas(['patient', 'patient.images']);
+        $response->assertInertia(fn(Assert $page) => $page->component('patients/show')->has('patient')->has('patient.images'));
         $this->assertDatabaseCount('images', 2);
         $this->assertDatabaseCount('patients', 1);
     }
@@ -249,11 +248,10 @@ class PatientsTest extends TestCase
             'last_name' => 'edited',
         ]);
 
-        $response->assertViewIs('pages.patients.index');
+        $response->assertRedirect(route('patients'));
         $this->assertDatabaseHas('patients', ['first_name' => 'edited', 'last_name' => 'edited']);
         $this->assertDatabaseCount('patients', 1);
     }
-
 
 
     /**
@@ -280,12 +278,10 @@ class PatientsTest extends TestCase
             'last_name' => '',
         ]);
 
-        $response->assertJsonValidationErrors(['first_name', 'last_name']);
+        $response->assertSessionHasErrors(['first_name', 'last_name']);
         $this->assertDatabaseHas('patients', ['first_name' => $patient->first_name, 'last_name' => $patient->last_name]);
         $this->assertDatabaseCount('patients', 1);
     }
-
-
 
 
     /**
