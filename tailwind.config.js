@@ -1,13 +1,12 @@
 module.exports = {
     important: true,
-    future: {
-        // removeDeprecatedGapUtilities: true,
-        // purgeLayersByDefault: true,
-    },
-    purge: [],
-    theme: {
-        extend: {},
-    },
-    variants: {},
-    plugins: [],
+    content: [
+      "./resources/**/*.blade.php",
+      "./resources/**/*.js",
+      "./resources/**/*.vue",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
 }

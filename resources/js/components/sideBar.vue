@@ -15,26 +15,26 @@
         <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <Link class="nav-link text-white active bg-gradient-primary" href="/">
+                    <Link class="nav-link text-white" :class="{'active bg-gradient-primary': $page.url === '/'}" :href="route('home')">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">dashboard</i>
+                            <i class="material-icons">dashboard</i>
                         </div>
                         <span class="nav-link-text ms-1">Dashboard</span>
                     </Link>
                 </li>
                 <li class="nav-item">
-                    <Link class="nav-link text-white " href="/patients">
+                    <Link class="nav-link text-white " :class="{'active bg-gradient-primary': $page.url === '/patients'}" :href="route('patients')">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">table_view</i>
+                            <i class="material-icons">table_view</i>
                         </div>
                         <span class="nav-link-text ms-1">Patients</span>
                     </Link>
                 </li>
 
                 <li class="nav-item">
-                    <Link class="nav-link text-white " href="/patients/create">
+                    <Link class="nav-link text-white" :class="{'active bg-gradient-primary': $page.url === '/patients/create'}" :href="route('patients.create')">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">table_view</i>
+                            <i class="material-icons">table_view</i>
                         </div>
                         <span class="nav-link-text ms-1">Add Patient</span>
                     </Link>

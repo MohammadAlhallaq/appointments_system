@@ -1,81 +1,57 @@
 <template>
-    <main class="main-content  mt-0">
-        <div class="page-header align-items-start min-vh-100">
-            <span class="mask bg-gradient-dark opacity-6"></span>
-            <div class="container my-auto">
-                <div class="row">
-                    <div class="col-lg-4 col-md-8 col-12 mx-auto">
-                        <div class="card z-index-0 fadeIn3 fadeInBottom">
-                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
-                                    <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Log in</h4>
-                                    <div class="row mt-3">
-                                        <div class="col-2 text-center ms-auto">
-                                            <a class="btn btn-link px-3" href="javascript:;">
-                                                <i class="fa fa-facebook text-white text-lg"></i>
-                                            </a>
-                                        </div>
-                                        <div class="col-2 text-center px-1">
-                                            <a class="btn btn-link px-3" href="javascript:;">
-                                                <i class="fa fa-github text-white text-lg"></i>
-                                            </a>
-                                        </div>
-                                        <div class="col-2 text-center me-auto">
-                                            <a class="btn btn-link px-3" href="javascript:;">
-                                                <i class="fa fa-google text-white text-lg"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div v-for="error in errors">
-                                    <div class="alert alert-primary alert-dismissible text-white" role="alert">
-                                        <span class="text-sm">{{error}}</span>
-                                        <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <form @submit.prevent="submit" class="text-start">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Email</label>
-                                        <input type="text" class="form-control" v-model="form.username">
 
-                                    </div>
-                                    <div class="input-group input-group-outline mb-3">
-                                        <label class="form-label">Password</label>
-                                        <input type="password" class="form-control" v-model="form.password">
-                                    </div>
-                                    <div class="form-check form-switch d-flex align-items-center mb-3">
-                                        <input class="form-check-input" type="checkbox" id="rememberMe" v-model="form.rememberMe">
-                                        <label class="form-check-label mb-0 ms-2" for="rememberMe">Remember me</label>
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign in
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+    <div class="h-screen flex flex-col justify-center items-center">
+        <div class="w-full max-w-xs">
+            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="submit">
+                <div v-if="errors.credentials"
+                     class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 mb-4" role="alert">
+                    <p class="font-bold">Heads up</p>
+                    <p>{{ errors.credentials }}</p>
                 </div>
-            </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                        Username
+                    </label>
+                    <input v-model="form.username" :class="{ 'border-red-500': errors.username }"
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight mb-3 focus:outline-none focus:shadow-outline"
+                           id="username" type="text">
+                    <p v-if="errors.username" class="text-red-500 text-xs italic">Please choose a password.</p>
+
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                        Password
+                    </label>
+                    <input v-model="form.password" :class="{ 'border-red-500': errors.password }"
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                           id="password" type="password">
+                    <p v-if="errors.password" class="text-red-500 text-xs italic">Please choose a password.</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button
+                        class="w-full bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                        type="submit">
+                        Sign In
+                    </button>
+                </div>
+            </form>
         </div>
-    </main>
+    </div>
 </template>
 
 <script>
 
-import { reactive } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
+import {reactive} from 'vue'
+import {Inertia} from '@inertiajs/inertia'
 
 export default {
+
+    layout: null,
     props: {
-        errors: Object
+        errors: Object,
     },
 
-    setup () {
+    setup() {
         const form = reactive({
             username: null,
             password: null,
