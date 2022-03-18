@@ -90,12 +90,11 @@ class AuthTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->post(route('login'),
+        $r = $this->post(route('login'),
             [
                 'username' => $user->username,
                 'password' => 'password'
-            ])
-        ->assertInertia(fn(Assert $page) => $page->component('home'));
+            ])->assertRedirect(route('home'));
 
         $this->assertAuthenticated();
     }

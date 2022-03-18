@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\Patient;
+use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
-use Illuminate\View\View;
 use Inertia\Response;
 
 class AppointmentController extends Controller
@@ -33,7 +33,7 @@ class AppointmentController extends Controller
 
         $data = validator(request()->all(), $rules)->validate();
 
-        throw_if(Appointment::BetweenDates(CarbonImmutable::parse($data['start_date'])->toDateTime(), CarbonImmutable::parse($data['end_date'])->toDateTime())->exists(), ValidationException::withMessages(['appointment' => 'Can\'t make appointment at this time']));
+        throw_if(Appointment::BetweenDates(Carbon::parseToDatetime($data['start_date']), Carbon::parseToDatetime($data['end_date']))->exists(), ValidationException::withMessages(['appointment' => 'Can\'t make appointment at this time']));
 
         Appointment::create([
             'start_date' => $data['start_date'],
@@ -53,7 +53,7 @@ class AppointmentController extends Controller
 
         $data = validator(request()->all(), $rules)->validate();
 
-        throw_if(Appointment::BetweenDates(CarbonImmutable::parse($data['start_date'])->toDateTime(), CarbonImmutable::parse($data['end_date'])->toDateTime())->exists(), ValidationException::withMessages(['office_id' => 'Can\'t make appointment at this time']));
+        throw_if(Appointment::BetweenDates(Carbon::parseToDatetime($data['start_date']), Carbon::parseToDatetime($data['end_date']))->exists(), ValidationException::withMessages(['appointment' => 'Can\'t make appointment at this time']));
 
         $appointment->update([
             'start_date' => $data['start_date'],
