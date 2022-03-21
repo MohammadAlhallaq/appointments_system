@@ -19,6 +19,7 @@ class AuthTest extends TestCase
      */
     public function ItViewLoginPage()
     {
+
         $response = $this->get(route('login'));
         $response->assertInertia(fn(Assert $page) => $page->component('auth/login'));
         $response->assertStatus(200);

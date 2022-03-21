@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,8 +10,6 @@ use Inertia\Response;
 
 class AuthController extends Controller
 {
-
-
     function login(Request $request): Response|RedirectResponse
     {
         if ($request->isMethod("POST")) {

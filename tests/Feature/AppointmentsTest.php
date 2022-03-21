@@ -138,9 +138,8 @@ class AppointmentsTest extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->put(route('appointments.update', ['patient' => $patient1->id, 'appointment' => $appointment->id]));
-
-        $this->assertEquals(Response::HTTP_NOT_FOUND, $response->status());
+        $this->put(route('appointments.update', ['patient' => $patient1->id, 'appointment' => $appointment->id]))
+            ->assertNotFound();
     }
 
 

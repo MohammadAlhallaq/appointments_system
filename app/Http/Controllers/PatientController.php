@@ -10,7 +10,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\View\View;
 use Inertia\Response;
 
 class PatientController extends Controller
@@ -48,7 +47,7 @@ class PatientController extends Controller
         return inertia('patients/create');
     }
 
-    function show(Patient $patient)
+    function show(Patient $patient): Response
     {
         return inertia('patients/show',
         [
@@ -65,6 +64,7 @@ class PatientController extends Controller
 
         return Redirect::route('patients');
     }
+
 
     function delete(Patient $patient): void
     {

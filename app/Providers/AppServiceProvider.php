@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Carbon::macro('parseToDatetime', function (string $date) {
-            return CarbonImmutable::parse($date)->toDateTime();
+            return rescue(fn() => CarbonImmutable::parse($date)->toDateTime(), false);
         });
     }
 }

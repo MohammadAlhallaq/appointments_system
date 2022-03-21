@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PatientController;
@@ -24,6 +25,7 @@ Route::inertia('/', 'home')->middleware('auth')->name('home');
 Route::GET('/{locale}', LocaleController::class)->name('changeLang')->where('locale', '(ar|en)');
 Route::GET('/logout', LogoutController::class)->name('logout')->middleware('auth');
 
+
 Route::controller(PatientController::class)->middleware('auth')->group(function () {
     Route::GET('/patients', 'index')->name('patients');
     Route::GET('/patients/create', 'create')->name('patients.create');
@@ -40,6 +42,13 @@ Route::controller(AppointmentController::class)->middleware('auth')->group(funct
     Route::DELETE( '/appointments/{appointment}', 'delete')->name('appointments.delete');
     Route::match(['PUT', 'GET'], '/patients/{patient}/appointments/{appointment:id}', 'update')->name('appointments.update');
 });
+
+
+Route::controller(ImageController::class)->prefix('images')->middleware('auth')->group(function (){
+    Route::POST('/{patient}', 'create')->name('images.create');
+});
+
+
 
 Route::controller(AuthController::class)->middleware('guest')->group(function () {
     Route::MATCH(['POST', 'GET'],'/login', 'login')->name('login');
