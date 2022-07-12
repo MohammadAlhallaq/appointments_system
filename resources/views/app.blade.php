@@ -6,6 +6,7 @@
     @inertiaHead
     <p></p>
     <p></p>
+    <p></p>
 </head>
 <body>
 @inertia
