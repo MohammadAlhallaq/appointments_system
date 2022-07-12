@@ -91,7 +91,6 @@ import {Inertia} from "@inertiajs/inertia";
 
 export default {
     layout: null,
-
     props: {
         errors: {
             type: Object,
