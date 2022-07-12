@@ -5,6 +5,7 @@
     <script src="{{ mix('/js/app.js') }}" defer></script>
     @inertiaHead
     <p></p>
+    <p></p>
 </head>
 <body>
 @inertia
